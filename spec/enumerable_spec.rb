@@ -1,7 +1,7 @@
 require 'enumerable'
 
 describe Enumerable do
-  let(:spec_num_array) { [*1..20] }
+  let(:spec_num_arr) { [*1..20] }
   let(:spec_range) { (1..20) }
   let(:spec_hash) { { a: 1, b: 2, c: 3, d: 4 } }
   let(:word_array) { %w[a string very_long_string] }
@@ -12,11 +12,11 @@ describe Enumerable do
   describe '#my_each' do
     context 'called on an array' do
       it 'returns the same value as the original given an array and a block' do
-        expect(spec_num_array.my_each(&:even?)).to eql(test_array)
+        expect(spec_num_arr.my_each(&:even?)).to eql(test_array)
       end
 
       it 'returns enumerator if array given without a block' do
-        expect(spec_num_array.my_each).to be_kind_of(Enumerable)
+        expect(spec_num_arr.my_each).to be_kind_of(Enumerable)
       end
     end
 
@@ -35,11 +35,11 @@ describe Enumerable do
   describe '#my_each_with_index' do
     context 'when operating on an array' do
       it 'returns the same value as the original given an array and a block' do
-        expect(spec_num_array.my_each_with_index { |a, b| a + b }).to eql(spec_num_array.each_with_index { |a, b| a + b })
+        expect(spec_num_arr.my_each_with_index { |a, b| a + b }).to eql(spec_num_arr.each_with_index { |a, b| a + b })
       end
 
       it 'returns enumerator if an array is given without a block' do
-        expect(spec_num_array.my_each).to be_kind_of(Enumerable)
+        expect(spec_num_arr.my_each).to be_kind_of(Enumerable)
       end
     end
 
@@ -58,11 +58,11 @@ describe Enumerable do
   describe '#my_select' do
     context 'operating on an array' do
       it 'returns enumerator if an array is given without a block' do
-        expect(spec_num_array.my_each).to be_kind_of(Enumerable)
+        expect(spec_num_arr.my_each).to be_kind_of(Enumerable)
       end
 
       it 'returns the same value as the original given an array and a block' do
-        expect(spec_num_array.my_select(&:even?)).to eql(spec_num_array.select(&:even?))
+        expect(spec_num_arr.my_select(&:even?)).to eql(spec_num_arr.select(&:even?))
       end
     end
 
@@ -86,7 +86,7 @@ describe Enumerable do
   # my_all
   describe 'my_all' do
     it 'returns true if all values are smaller than 21' do
-      expect(spec_num_array.my_all? { |v| v < 21 }).to eql(spec_num_array.all? { |v| v < 21 })
+      expect(spec_num_arr.my_all? { |v| v < 21 }).to eql(spec_num_arr.all? { |v| v < 21 })
     end
 
     it 'returns true if all elements in an array are String values' do
@@ -94,7 +94,7 @@ describe Enumerable do
     end
 
     it 'returns true if all elements in an array are Integer values' do
-      expect(spec_num_array.my_all?(Integer)).to eql(true)
+      expect(spec_num_arr.my_all?(Integer)).to eql(true)
     end
 
     it 'returns fals if all elements in an array do not match the given pattern' do
@@ -102,7 +102,7 @@ describe Enumerable do
     end
 
     it 'returns false if a value in the array doesn\'t satisfy the block condition' do
-      expect(spec_num_array.my_all? { |v| v < 10 }).to eql(spec_num_array.all? { |v| v < 10 })
+      expect(spec_num_arr.my_all? { |v| v < 10 }).to eql(spec_num_arr.all? { |v| v < 10 })
     end
   end
 
@@ -110,11 +110,11 @@ describe Enumerable do
   describe '#my_none?' do
     context 'when given an array' do
       it 'return false if any of the elements in the array is equal to true.' do
-        expect(spec_num_array.my_none?(&:even?)).to eql(false)
+        expect(spec_num_arr.my_none?(&:even?)).to eql(false)
       end
 
       it 'returns true if none of the elements in an array are String values' do
-        expect(spec_num_array.my_none?(String)).to eql(true)
+        expect(spec_num_arr.my_none?(String)).to eql(true)
       end
 
       it 'returns true if no elements in an array are Integer values' do
@@ -142,7 +142,7 @@ describe Enumerable do
   # my_any
   describe '#my_any' do
     it 'returns true if one value in the array is true.' do
-      expect(spec_num_array.my_any?(2)).to eql(true)
+      expect(spec_num_arr.my_any?(2)).to eql(true)
     end
 
     it 'returns true if one value in a range is true.' do
@@ -157,7 +157,7 @@ describe Enumerable do
   # my_count
   describe '#my_count' do
     it 'counts the number of items in an array that match the given argument or block.' do
-      expect(spec_num_array.my_count(2)).to eql(1)
+      expect(spec_num_arr.my_count(2)).to eql(1)
     end
 
     it 'counts the number of items in a range that match the given argument or block.' do
@@ -172,7 +172,7 @@ describe Enumerable do
   # my_map
   describe '#my_map' do
     it 'iterates over every element in an array & performs an action on it. ' do
-      expect(spec_num_array.my_map { |el| el * 2 }).to eql(spec_num_array.map { |el| el * 2 })
+      expect(spec_num_arr.my_map { |el| el * 2 }).to eql(spec_num_arr.map { |el| el * 2 })
     end
 
     it 'iterates over every element in a range & performs an action on it. ' do
@@ -187,7 +187,7 @@ describe Enumerable do
   # my_inject
   describe '#my_inject' do
     it 'returns the sum of all the values in an array' do
-      expect(spec_num_array.my_inject { |sum, val| sum + val }).to eql(210)
+      expect(spec_num_arr.my_inject { |sum, val| sum + val }).to eql(210)
     end
 
     it 'behaves like the original when applied to a range' do
