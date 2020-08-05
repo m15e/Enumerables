@@ -1,4 +1,4 @@
-require 'enumerable'
+require '../lib/enumerable.rb'
 
 describe Enumerable do
   let(:spec_num_array) { [*1..20] }
