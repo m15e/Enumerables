@@ -147,7 +147,7 @@ describe Enumerable do
 
   # my_any
   describe '#my_any' do
-    context "when given an array" do
+    context 'when given an array' do
       it 'returns true if one value in the array is true.' do
         expect(spec_num_arr.my_any?(2)).to eql(true)
       end
