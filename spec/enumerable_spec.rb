@@ -14,7 +14,7 @@ describe Enumerable do
       it 'returns the same value as the original given an array and a block' do
         expect(spec_num_array.my_each(&:even?)).to eql(test_array)
       end
-  
+
       it 'returns enumerator if array given without a block' do
         expect(spec_num_array.my_each).to be_kind_of(Enumerable)
       end
@@ -24,7 +24,7 @@ describe Enumerable do
       it 'returns the same value as the original given a range and a block' do
         expect(spec_range.my_each(&:even?)).to eql(test_range)
       end
-  
+
       it 'returns enumerator if a range given without a block' do
         expect(spec_range.my_each).to be_kind_of(Enumerable)
       end
@@ -116,11 +116,11 @@ describe Enumerable do
       it 'returns true if none of the elements in an array are String values' do
         expect(spec_num_array.my_none?(String)).to eql(true)
       end
-  
+
       it 'returns true if no elements in an array are Integer values' do
         expect(word_array.my_none?(Integer)).to eql(true)
       end
-  
+
       it 'returns true if no elements in an array match the given pattern' do
         expect(word_array.my_none?(/d/)).to eql(true)
       end
