@@ -7,6 +7,8 @@ describe Enumerable do
   let(:word_array) { %w[a string very_long_string] }
   let(:test_array) { [*1..20].each(&:even?) }
   let(:test_range) { (1..20).each(&:even?) }
+  let(:single_val_arr) { [1] }
+  let(:empty_array) { [] }
 
   # my_each
   describe '#my_each' do
@@ -104,6 +106,10 @@ describe Enumerable do
     it 'returns false if a value in the array doesn\'t satisfy the block condition' do
       expect(spec_num_arr.my_all? { |v| v < 10 }).to eql(spec_num_arr.all? { |v| v < 10 })
     end
+
+    it 'returns true if a single value array matches the query' do
+      expect(single_val_arr.my_all?(1)).to eql(true)
+    end
   end
 
   # my_none
@@ -141,8 +147,26 @@ describe Enumerable do
 
   # my_any
   describe '#my_any' do
-    it 'returns true if one value in the array is true.' do
-      expect(spec_num_arr.my_any?(2)).to eql(true)
+    context "when given an array" do
+      it 'returns true if one value in the array is true.' do
+        expect(spec_num_arr.my_any?(2)).to eql(true)
+      end
+
+      it 'returns true if any of the elements in a word array are string values' do
+        expect(word_array.my_any?(String)).to eql(true)
+      end
+
+      it 'returns true if any element in an integer array are integer values' do
+        expect(spec_num_arr.my_any?(Integer)).to eql(true)
+      end
+
+      it 'returns true if any element in an array matches the given pattern' do
+        expect(spec_num_arr.my_any?(/d/)).to eql(false)
+      end
+
+      it 'returns false when running a query on an empty array' do
+        expect(empty_array.my_any?(1)).to eql(false)
+      end
     end
 
     it 'returns true if one value in a range is true.' do
@@ -188,6 +212,14 @@ describe Enumerable do
   describe '#my_inject' do
     it 'returns the sum of all the values in an array' do
       expect(spec_num_arr.my_inject { |sum, val| sum + val }).to eql(210)
+    end
+
+    it 'behaves like the original when given a special operator term for addition' do
+      expect(spec_num_arr.my_inject(:+)).to eql(210)
+    end
+
+    it 'behaves like the original when given a special operator term for multiplication' do
+      expect(spec_num_arr.my_inject(:*)).to eql(spec_num_arr.inject(:*))
     end
 
     it 'behaves like the original when applied to a range' do
